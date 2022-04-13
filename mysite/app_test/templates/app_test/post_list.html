@@ -1,14 +1,27 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ЗАГОЛОВК</title>
-</head>
-<body>
-<h1>заголовок страницы</h1>
+{% extends 'app_test/base.html' %}
+{% load static %}
 
-</body>
+<html>
+    <head>
+        <title>Django Girls blog</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static 'css/app_test.css' %}">
+        <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+
+    </head>
+    <body class="container">
+            {% block content %}
+                {% for post in posts %}
+                    <div class="post">
+                        <div class="date">
+                            <p>Опубликовано: {{ post.published_date }}</p>
+                        </div>
+                        <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+                        <p>{{ post.text|linebreaksbr }}</p>
+
+                    </div>
+                {% endfor %}
+           {% endblock %}
+    </body>
 </html>
